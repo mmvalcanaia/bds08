@@ -10,7 +10,12 @@ const options = [
 function Filter() {
   return (
     <div className="filter-container base-card">
-      <Select className="filter-select" classNamePrefix="filter-container" options={options} />
+      <Select
+        className="filter-select"
+        isClearable={true}
+        classNamePrefix="filter-container"
+        options={options}
+      />
     </div>
   );
 }
