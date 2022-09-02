@@ -8,8 +8,8 @@ import { PieChartConfig, SalesByStoreByGender, SalesSummary, Store } from './typ
 import { makeRequest } from './utils/requests';
 
 function App() {
-  const [store, setStore] = useState<Store>({ id: 1, name: 'Uberaba' });
-  const [summary, setSummary] = useState<SalesSummary>();
+  const [store, setStore] = useState<Store>({ id: 0, name: '' });
+  const [totalSum, setTotalSum] = useState<SalesSummary>({ sum: 0 });
   const [chartData, setChartData] = useState<PieChartConfig>();
 
   const handleFilterChange = (filterStore: Store) => {
@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     makeRequest
       .get<SalesSummary>(`/sales/summary?storeId=${store?.id}`)
-      .then((response) => setSummary(response.data));
+      .then((response) => setTotalSum(response.data));
   }, [store]);
 
   useEffect(() => {
@@ -37,10 +37,10 @@ function App() {
       <div className="app-container">
         <Filter onFilterChange={handleFilterChange} />
         <PieChartCard
-          name=""
+          name="Gênero"
           labels={chartData?.labels}
           series={chartData?.series}
-          summary={summary}
+          summary={totalSum}
         />
       </div>
     </>
